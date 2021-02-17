@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using knjiznica.Data;
 
 namespace knjiznica.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210217195723_Posudba")]
+    partial class Posudba
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,7 +269,7 @@ namespace knjiznica.Data.Migrations
                     b.Property<DateTime>("datumPosudbe")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("datumVraćanja")
+                    b.Property<DateTime>("datumVraćanja")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

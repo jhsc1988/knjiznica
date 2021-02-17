@@ -15,5 +15,6 @@ namespace knjiznica.Data
         }
         public DbSet<knjiznica.Models.Knjiga> Knjiga { get; set; }
         public DbSet<knjiznica.Models.Rezervacija> Rezervacija { get; set; }
+        public DbSet<knjiznica.Models.Posudba> Posudba { get; set; }
     }
 }
