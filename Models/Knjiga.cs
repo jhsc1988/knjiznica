@@ -17,6 +17,7 @@ namespace knjiznica.Models
         public string Autor { get; set; }
 
         [Required]
+        [Display(Name = "Izdavač")]
         public string Izdavac { get; set; }
 
         [Required]

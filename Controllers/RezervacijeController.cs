@@ -67,8 +67,8 @@ namespace knjiznica.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Autor", rezervacija.KnjigaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", rezervacija.UserId);
+            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Naslov", rezervacija.KnjigaId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", rezervacija.UserId);
             return View(rezervacija);
         }
 
@@ -85,8 +85,8 @@ namespace knjiznica.Controllers
             {
                 return NotFound();
             }
-            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Autor", rezervacija.KnjigaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", rezervacija.UserId);
+            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Naslov", rezervacija.KnjigaId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", rezervacija.UserId);
             return View(rezervacija);
         }
 
@@ -122,8 +122,8 @@ namespace knjiznica.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Autor", rezervacija.KnjigaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", rezervacija.UserId);
+            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Naslov", rezervacija.KnjigaId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", rezervacija.UserId);
             return View(rezervacija);
         }
 

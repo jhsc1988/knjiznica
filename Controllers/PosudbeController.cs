@@ -49,8 +49,8 @@ namespace knjiznica.Controllers
         // GET: Posudbe/Create
         public IActionResult Create()
         {
-            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Autor");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Naslov");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace knjiznica.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Autor", posudba.KnjigaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", posudba.UserId);
+            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Naslov", posudba.KnjigaId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", posudba.UserId);
             return View(posudba);
         }
 
@@ -85,8 +85,8 @@ namespace knjiznica.Controllers
             {
                 return NotFound();
             }
-            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Autor", posudba.KnjigaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", posudba.UserId);
+            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Naslov", posudba.KnjigaId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", posudba.UserId);
             return View(posudba);
         }
 
@@ -122,8 +122,8 @@ namespace knjiznica.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Autor", posudba.KnjigaId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", posudba.UserId);
+            ViewData["KnjigaId"] = new SelectList(_context.Knjiga, "Id", "Naslov", posudba.KnjigaId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", posudba.UserId);
             return View(posudba);
         }
 

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using knjiznica.Data;
 using knjiznica.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace knjiznica.Controllers
 {
@@ -24,6 +26,7 @@ namespace knjiznica.Controllers
         {
             return View(await _context.Knjiga.ToListAsync());
         }
+
 
         // GET: Knjige/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -64,6 +67,26 @@ namespace knjiznica.Controllers
             }
             return View(knjiga);
         }
+
+
+
+        public async Task<IActionResult> Rezerviraj(int? id)
+        {
+            Rezervacija rez = new Rezervacija
+            {
+                KnjigaId = id.GetValueOrDefault(),
+                datumRezervacija = DateTime.Now,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            };
+            _context.Entry(rez).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+                
+            // Cannot insert explicit value for identity column in table 'Rezervacija' when IDENTITY_INSERT is set to OFF.
+
+        }
+
+
 
         // GET: Knjige/Edit/5
         public async Task<IActionResult> Edit(int? id)
