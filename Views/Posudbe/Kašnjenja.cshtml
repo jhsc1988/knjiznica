@@ -1,0 +1,51 @@
+﻿@model IEnumerable<knjiznica.Models.Posudba>
+
+@{
+    ViewData["Title"] = "Kašnjenja";
+}
+
+<h1>Kašnjenja</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Knjiga)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datumPosudbe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datumVraćanja)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @if ((item.datumPosudbe - DateTime.Now).TotalDays > 31)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Knjiga.Naslov)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datumPosudbe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datumVraćanja)
+                </td>
+            }
+            </tr>
+}
+    </tbody>
+</table>

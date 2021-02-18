@@ -6,14 +6,6 @@
 
 <h1>Index</h1>
 
-@{
-<script type="text/javascript">
-            window.onload = function () {
-                alert("haeuhaeuae");
-            };
-                @ViewBag.err = null;
-</script>}
-
 @if (User.Identity.IsAuthenticated && User.Identity.Name.ToString().Equals("administrator@knjiznica.hr"))
 {
 <p>

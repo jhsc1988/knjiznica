@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using knjiznica.Data;
+using knjiznica.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using knjiznica.Data;
-using knjiznica.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace knjiznica.Controllers
 {
@@ -161,6 +159,12 @@ namespace knjiznica.Controllers
         private bool PosudbaExists(int id)
         {
             return _context.Posudba.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> Kašnjenja()
+        {
+            var applicationDbContext = _context.Posudba.Include(p => p.Knjiga).Include(p => p.User);
+            return View(await applicationDbContext.ToListAsync());
         }
     }
 }
