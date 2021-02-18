@@ -20,9 +20,18 @@ namespace knjiznica.Controllers
         }
 
         // GET: Rezervacije
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            var applicationDbContext = _context.Rezervacija.Include(r => r.Knjiga).Include(r => r.User);
+            if (!String.IsNullOrEmpty(search))
+            {
+                ViewBag.Search = search;
+                var rezervacije = from k in _context.Rezervacija
+                              select k;
+                rezervacije = rezervacije.Where(rezervacije => rezervacije.Knjiga.Naslov.Contains(search));
+                return View(rezervacije.Include(p => p.Knjiga).Include(p => p.User));
+            }
+
+            var applicationDbContext = _context.Rezervacija.Include(p => p.Knjiga).Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }
 

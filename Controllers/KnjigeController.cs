@@ -22,8 +22,16 @@ namespace knjiznica.Controllers
         }
 
         // GET: Knjige
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
+            if(!String.IsNullOrEmpty(search))
+            {
+                ViewBag.Search = search;
+                var knjige = from k in _context.Knjiga
+                             select k;
+                knjige = knjige.Where(knjige => knjige.Naslov.Contains(search));
+                return View(knjige.ToList());
+            }
             return View(await _context.Knjiga.ToListAsync());
         }
 
@@ -42,7 +50,6 @@ namespace knjiznica.Controllers
             {
                 return NotFound();
             }
-
             return View(knjiga);
         }
 

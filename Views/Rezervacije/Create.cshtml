@@ -1,10 +1,10 @@
 ﻿@model knjiznica.Models.Rezervacija
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Kreiraj novu";
 }
 
-<h1>Create</h1>
+<h1>@ViewData["Title"]</h1>
 
 <h4>Rezervacija</h4>
 <hr />
@@ -26,14 +26,14 @@
                 <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Kreiraj" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Povratak na listu</a>
 </div>
 
 @section Scripts {

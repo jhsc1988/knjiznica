@@ -4,48 +4,56 @@
     ViewData["Title"] = "Kašnjenja";
 }
 
-<h1>Kašnjenja</h1>
+<h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Knjiga)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.datumPosudbe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.datumVraćanja)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            @if ((item.datumPosudbe - DateTime.Now).TotalDays > 31)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Knjiga.Naslov)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.datumPosudbe)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.datumVraćanja)
-                </td>
-            }
+<div style="height: 600px; overflow-y: scroll; background-color: #fff">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Knjiga)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.datumPosudbe)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.datumVraćanja)
+                </th>
+                <th>
+                    Zakasnina
+                </th>
+                <th></th>
             </tr>
-}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var numberOfDays = (DateTime.Now - item.datumPosudbe).TotalDays;
+                var zakasnina = numberOfDays * 0.5;
+            <tr>
+                @if (numberOfDays > 31)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Knjiga.Naslov)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.datumPosudbe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.datumVraćanja)
+                    </td>
+                    <td>
+                        @Math.Round(zakasnina,2).ToString() kn
+                    </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

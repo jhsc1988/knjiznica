@@ -1,53 +1,61 @@
 ﻿@model IEnumerable<knjiznica.Models.Posudba>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Posudbe";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Kreiraj novu</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Knjiga)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.datumPosudbe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.datumVraćanja)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Knjiga.Naslov)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.datumPosudbe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.datumVraćanja)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<form type="get">
+    Pretraga po naslovu:
+    <input type="search" name="search" value="@ViewBag.Search" />
+    <input type="submit" value="Traži" />
+</form>
+<div style="height: 600px; overflow-y: scroll; background-color: #fff">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Knjiga)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.datumPosudbe)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.datumVraćanja)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Knjiga.Naslov)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.datumPosudbe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.datumVraćanja)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">promjena</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">detalji</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">brisanje</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

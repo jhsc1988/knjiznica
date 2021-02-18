@@ -3,6 +3,7 @@ using knjiznica.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,8 +19,17 @@ namespace knjiznica.Controllers
         }
 
         // GET: Posudbe
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
+            if (!String.IsNullOrEmpty(search))
+            {
+                ViewBag.Search = search;
+                var posudbe = from k in _context.Posudba
+                             select k;
+                posudbe = posudbe.Where(posudbe => posudbe.Knjiga.Naslov.Contains(search));
+                return View(posudbe.Include(p => p.Knjiga).Include(p => p.User));
+            }
+
             var applicationDbContext = _context.Posudba.Include(p => p.Knjiga).Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }

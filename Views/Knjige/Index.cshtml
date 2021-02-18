@@ -1,72 +1,80 @@
 ﻿@model IEnumerable<knjiznica.Models.Knjiga>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Katalog knjiga";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 @if (User.Identity.IsAuthenticated && User.Identity.Name.ToString().Equals("administrator@knjiznica.hr"))
 {
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Kreiraj novu</a>
 </p>
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Naslov)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Autor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Izdavac)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ISBN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DatumIzdavanja)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<form type="get">
+    Pretraga po naslovu:
+    <input type="search" name="search" value="@ViewBag.Search" />
+    <input type="submit" value="Traži" />
+
+</form>
+<div style="height: 600px; overflow-y: scroll; background-color: #fff">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Naslov)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Autor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Izdavac)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ISBN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatumIzdavanja)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naslov)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Autor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Izdavac)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumIzdavanja)
-            </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Naslov)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Autor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Izdavac)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ISBN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DatumIzdavanja)
+                    </td>
 
-            <td>
-                @if (User.Identity.IsAuthenticated && !User.Identity.Name.ToString().Equals("administrator@knjiznica.hr"))
-                    {
-                <a asp-action="Rezerviraj" asp-route-id="@item.Id">Rezerviraj</a>
-                    }
+                    <td>
+                        @if (User.Identity.IsAuthenticated && !User.Identity.Name.ToString().Equals("administrator@knjiznica.hr"))
+                        {
+                            <a asp-action="Rezerviraj" asp-route-id="@item.Id">Rezerviraj</a>
+                        }
 
-                @if(User.Identity.IsAuthenticated && User.Identity.Name.ToString().Equals("administrator@knjiznica.hr"))
-                    {
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><a> | </a>;
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a><a> | </a>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-            </td>
-        </tr>
+                        @if (User.Identity.IsAuthenticated && User.Identity.Name.ToString().Equals("administrator@knjiznica.hr"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">promjena</a><a> | </a>;
+                            <a asp-action="Details" asp-route-id="@item.Id">detalji</a><a> | </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">briši</a>
+                        }
+                    </td>
+                </tr>
             }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
