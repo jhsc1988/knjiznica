@@ -52,6 +52,11 @@ namespace knjiznica.Controllers
             return View();
         }
 
+        public IActionResult Rez()
+        {
+            return View();
+        }
+
         // POST: Knjige/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -72,6 +77,13 @@ namespace knjiznica.Controllers
 
         public async Task<IActionResult> Rezerviraj(int? id)
         {
+
+            var v = from p in _context.Rezervacija
+                    where (p.KnjigaId == id)
+                     && (p.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                    select p;
+
+            if(v.Count() == 0) { 
             Rezervacija rez = new Rezervacija
             {
                 KnjigaId = id.GetValueOrDefault(),
@@ -80,13 +92,10 @@ namespace knjiznica.Controllers
             };
             _context.Entry(rez).State = EntityState.Added;
             await _context.SaveChangesAsync();
+            }
+            else { return RedirectToAction("Rez"); }
             return RedirectToAction(nameof(Index));
-                
-            // Cannot insert explicit value for identity column in table 'Rezervacija' when IDENTITY_INSERT is set to OFF.
-
         }
-
-
 
         // GET: Knjige/Edit/5
         public async Task<IActionResult> Edit(int? id)
